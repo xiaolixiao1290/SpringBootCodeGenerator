@@ -59,4 +59,4 @@ OEM:
   returnUtilSuccess: ReturnT.success
   returnUtilFailure: ReturnT.error
   outputStr: www.bejson.com
-  mode: CDN
+  mode: local

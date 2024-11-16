@@ -21,7 +21,7 @@ public final class mysqlJavaTypeUtil {
         //小数
         mysqlJavaTypeMap.put("float","Float");
         mysqlJavaTypeMap.put("double","Double");
-        mysqlJavaTypeMap.put("decimal","Double");
+        mysqlJavaTypeMap.put("decimal","BigDecimal");
         //bool
         mysqlJavaTypeMap.put("bit","Boolean");
         //字符串

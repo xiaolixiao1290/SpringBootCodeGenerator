@@ -1,40 +1,42 @@
-<#if isAutoImport?exists && isAutoImport==true>
-import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
+<#-- 检查是否需要导入 BigDecimal 包 -->
+<#assign hasBigDecimal = false>
+<#assign hasCreateTimeOrUpdateTime = false>
+<#if classInfo.fieldList?exists && classInfo.fieldList?size gt 0>
+    <#list classInfo.fieldList as fieldItem>
+        <#if fieldItem.fieldClass == "BigDecimal">
+            <#assign hasBigDecimal = true>
+        </#if>
+        <#if fieldItem.fieldName == "createTime" || fieldItem.fieldName == "updateTime">
+            <#assign hasCreateTimeOrUpdateTime = true>
+        </#if>
+    </#list>
 </#if>
+
+<#if hasCreateTimeOrUpdateTime>import com.fasterxml.jackson.annotation.JsonFormat;</#if>
+<#if isLombok?exists && isLombok == true>import lombok.Data;</#if>
+
+<#-- 导入相关包 -->
+<#if hasBigDecimal>import java.math.BigDecimal;</#if>
+import java.util.Date;
 /**
- * @description ${classInfo.classComment}
- * @author ${authorName}
- * @date ${.now?string('yyyy-MM-dd')}
- */
-public class ${classInfo.className} implements Serializable {
-
-    private static final long serialVersionUID = 1L;
-
+* @description ${classInfo.classComment}
+* @author ${authorName}
+* @date ${.now?string('yyyy-MM-dd')}
+*/
+<#if isLombok?exists && isLombok==true>@Data</#if>
+public class ${classInfo.className} {
 <#if classInfo.fieldList?exists && classInfo.fieldList?size gt 0>
 <#list classInfo.fieldList as fieldItem >
     <#if isComment?exists && isComment==true>/**
     * ${fieldItem.fieldComment}
     */</#if>
+    <#if fieldItem.fieldName == "createTime" || fieldItem.fieldName == "updateTime">
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    </#if>
     private ${fieldItem.fieldClass} ${fieldItem.fieldName};
+    <#if fieldItem?has_next>
 
-</#list>
-</#if>
-
-<#if classInfo.fieldList?exists && classInfo.fieldList?size gt 0>
-    public ${classInfo.className}() {
-    }
-
-<#list classInfo.fieldList as fieldItem>
-    public ${fieldItem.fieldClass} get${fieldItem.fieldName?cap_first}() {
-        return ${fieldItem.fieldName};
-    }
-
-    public void set${fieldItem.fieldName?cap_first}(${fieldItem.fieldClass} ${fieldItem.fieldName}) {
-        this.${fieldItem.fieldName} = ${fieldItem.fieldName};
-    }
-
+    </#if>
 </#list>
 </#if>
 }

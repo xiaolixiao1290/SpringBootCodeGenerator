@@ -87,6 +87,8 @@ public class TableParseUtil {
             className = className.replaceAll("_", "");
         }
 
+        className += "Do";
+
         // class Comment
         String classComment = null;
         //mysql是comment=,pgsql/oracle是comment on table,
