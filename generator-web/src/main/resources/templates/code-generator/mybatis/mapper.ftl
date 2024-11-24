@@ -17,6 +17,11 @@ public interface ${classInfo.className}Mapper {
     int insert(${classInfo.className} ${classInfo.className?uncap_first});
 
     /**
+    * 新增或在重复键冲突时更新
+    **/
+    int insertOrUpdateOnDuplicateKey(${classInfo.className} ${classInfo.className?uncap_first});
+
+    /**
     * 刪除
     **/
     int deleteById(@Param("id") int id);
