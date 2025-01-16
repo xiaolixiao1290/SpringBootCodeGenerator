@@ -1,3 +1,4 @@
+package ${packageName}.model;
 <#-- 检查是否需要导入 BigDecimal 包 -->
 <#assign hasBigDecimal = false>
 <#assign hasCreateTimeOrUpdateTime = false>
@@ -14,12 +15,11 @@
 
 <#if hasCreateTimeOrUpdateTime>import com.fasterxml.jackson.annotation.JsonFormat;</#if>
 <#if isLombok?exists && isLombok == true>import lombok.Data;</#if>
-
-<#-- 导入相关包 -->
 <#if hasBigDecimal>import java.math.BigDecimal;</#if>
 import java.util.Date;
 /**
-* @description ${classInfo.classComment}
+* ${classInfo.classComment}
+*
 * @author ${authorName}
 * @date ${.now?string('yyyy-MM-dd')}
 */

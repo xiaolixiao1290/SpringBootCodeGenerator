@@ -86,6 +86,7 @@ public class GeneratorController {
         Map<String, String> result = generatorService.getResultByParams(paramInfo.getOptions());
 //        log.info("result {}",result);
         log.info("table:{} - time:{} ", MapUtil.getString(result,"tableName"),new Date());
+        result.put("className", classInfo.getClassName());
         return ReturnT.ok().put("outputJson",result);
     }
 

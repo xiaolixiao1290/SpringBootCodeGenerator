@@ -51,44 +51,6 @@
         </trim>
     </insert>
 
-    <insert id="insertOrUpdateOnDuplicateKey" useGeneratedKeys="true" keyColumn="id" keyProperty="id" parameterType="${packageName}.model.${classInfo.className}">
-        INSERT INTO ${classInfo.originTableName}
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            <#if classInfo.fieldList?exists && classInfo.fieldList?size gt 0>
-                <#list classInfo.fieldList as fieldItem>
-                    <#if fieldItem.columnName != "id">
-                        <if test="null != ${fieldItem.fieldName} <#if fieldItem.fieldClass = "String">and '' != ${fieldItem.fieldName}</#if>">
-                            ${fieldItem.columnName}<#if fieldItem_has_next>,</#if>
-                        </if>
-                    </#if>
-                </#list>
-            </#if>
-        </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <#if classInfo.fieldList?exists && classInfo.fieldList?size gt 0>
-                <#list classInfo.fieldList as fieldItem>
-                    <#if fieldItem.columnName != "id">
-                        <if test="null != ${fieldItem.fieldName} <#if fieldItem.fieldClass = "String">and '' != ${fieldItem.fieldName}</#if>">
-                            ${r"#{"}${fieldItem.fieldName}${r"}"}<#if fieldItem_has_next>,</#if>
-                        </if>
-                    </#if>
-                </#list>
-            </#if>
-        </trim>
-        ON DUPLICATE KEY UPDATE
-        <trim suffixOverrides=",">
-            <#if classInfo.fieldList?exists && classInfo.fieldList?size gt 0>
-                <#list classInfo.fieldList as fieldItem>
-                    <#if fieldItem.columnName != "id">
-                        <if test="null != ${fieldItem.fieldName} <#if fieldItem.fieldClass = "String">and '' != ${fieldItem.fieldName}</#if>">
-                            ${fieldItem.columnName} = ${r"#{"}${fieldItem.fieldName}${r"}"}<#if fieldItem_has_next>,</#if>
-                        </if>
-                    </#if>
-                </#list>
-            </#if>
-        </trim>
-    </insert>
-
     <delete id="deleteById" >
         DELETE FROM ${classInfo.originTableName}
         WHERE id = ${r"#{id}"}

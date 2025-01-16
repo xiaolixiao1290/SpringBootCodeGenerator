@@ -2,6 +2,8 @@ package com.softdev.system.generator.entity;
 
 import lombok.Data;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -12,6 +14,7 @@ import java.util.Map;
 @Data
 public class ParamInfo {
 
+    private List<String> tableSqlList = new ArrayList<>();
     private String tableSql;
     private Map<String,Object> options;
 
